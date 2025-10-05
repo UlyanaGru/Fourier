@@ -29,7 +29,7 @@ def init_matplotlib(name):
 
 def set_param_matplotlib(name,rcParamsName,rcParamsVal):
     """
-    Изменение базовых настроек графиков
+    РР·РјРµРЅРµРЅРёРµ Р±Р°Р·РѕРІС‹С… РЅР°СЃС‚СЂРѕРµРє РіСЂР°С„РёРєРѕРІ
     """
     name.rcParams[rcParamsName] = rcParamsVal
 
@@ -44,7 +44,7 @@ init_matplotlib(plt)
 
 filename = "./data/s2d_film_time_statistic.dat"
 with open(filename, "r") as f:
-    first_line = f.readline().strip()   # читаем первую строку
+    first_line = f.readline().strip()   # С‡РёС‚Р°РµРј РїРµСЂРІСѓСЋ СЃС‚СЂРѕРєСѓ
     dxmesh = float(first_line)
 
 data = pd.read_csv("./data/s2d_film_time_statistic.dat",sep=',',skiprows=1)
@@ -63,7 +63,7 @@ def X2N(x,dx,nx):
 def N2X(n,dx):
     return n*dx
 tshift = 0.5
-#выбираем точки
+#РІС‹Р±РёСЂР°РµРј С‚РѕС‡РєРё
 n1 = 1000
 xp1 = N2X(n1,dxmesh)
 n2 = 1020
@@ -147,7 +147,7 @@ init_matplotlib(plt)
 
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 
-nameX = '$f \mathrm{,\ Гц}$'
+nameX = '$f \mathrm{,\ Р“С†}$'
 nameY = '$(\\delta - \\overline{\\delta})/\\overline{\\delta} \\cdot 100 \%$'
 
 fs = 1000.0
@@ -198,7 +198,7 @@ ax1.set_xlim(xmin = 0.0)
 ax1.set_ylim(ymin = 0.0)
 ax1.set_xlabel(nameX)
 ax1.set_ylabel(nameY)
-ax1.set_title(f"Основная длина волны: {lambdadominant*1.0e3:.3g} mm")
+ax1.set_title(f"РћСЃРЅРѕРІРЅР°СЏ РґР»РёРЅР° РІРѕР»РЅС‹: {lambdadominant*1.0e3:.3g} mm")
 #ax1.set_xticks(np.arange(xmin,xmax+dx,dx))
 #ax1.set_yticks(np.arange(ymin,ymax+dy,dy))
 
@@ -216,9 +216,9 @@ lags = np.arange(-len(y1)+1, len(y2))
 lag_max = lags[np.argmax(corr)]
 time_shift = lag_max / fs
 
-print(f"Сдвиг между сигналами: {lag_max} отсчётов, или {time_shift:.6f} s")
+print(f"РЎРґРІРёРі РјРµР¶РґСѓ СЃРёРіРЅР°Р»Р°РјРё: {lag_max} РѕС‚СЃС‡С‘С‚РѕРІ, РёР»Рё {time_shift:.6f} s")
 uw = abs(xp2-xp1)*1.0e3/abs(time_shift)
-print(f"Фазовая скорость: {uw:.3g} mm/s")
+print(f"Р¤Р°Р·РѕРІР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ: {uw:.3g} mm/s")
 patch2fileout = './/figout//corr_'
 
 fig, ax = plt.subplots(nrows=1,ncols = 1)
@@ -226,11 +226,11 @@ fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
 
 ax1.plot(lags/fs, corr)
-ax1.axvline(time_shift, color='r', linestyle='--', label=f"Сдвиг = {time_shift:.6f} c")
-ax1.set_xlabel("Лаг (сек)")
-ax1.set_ylabel("Корреляция")
+ax1.axvline(time_shift, color='r', linestyle='--', label=f"пїЅпїЅпїЅпїЅпїЅ = {time_shift:.6f} c")
+ax1.set_xlabel("Р›Р°Рі (СЃРµРє)")
+ax1.set_ylabel("РљРѕСЂСЂРµР»СЏС†РёСЏ")
 ax1.legend()
-ax1.set_title("Взаимная корреляция")
+ax1.set_title("Р’Р·Р°РёРјРЅР°СЏ РєРѕСЂСЂРµР»СЏС†РёСЏ")
 
 plt.tight_layout()
 plt.savefig(patch2fileout)
