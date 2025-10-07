@@ -18,3 +18,7 @@ A comprehensive Python-based signal processing toolkit for analyzing wave propag
 ```bash
 pip install numpy pandas matplotlib scipy
 
+![1](https://github.com/UlyanaGru/Fourier/blob/master/figout/timesignal_.jpg)
+![2](https://github.com/UlyanaGru/Fourier/blob/master/figout/xsignal_.jpg)
+![3](https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg)
+![4](https://github.com/UlyanaGru/Fourier/blob/master/figout/corr_.jpg)
