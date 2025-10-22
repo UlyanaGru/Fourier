@@ -22,3 +22,6 @@ pip install numpy pandas matplotlib scipy
 ![2](https://github.com/UlyanaGru/Fourier/blob/master/figout/xsignal_.jpg)
 ![3](https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg)
 ![4](https://github.com/UlyanaGru/Fourier/blob/master/figout/corr_.jpg)
+
+![5](https://github.com/UlyanaGru/Fourier/blob/master/figout/3Dsurf.png)
+![6](https://github.com/UlyanaGru/Fourier/blob/master/figout/2D_film_thickness.png)
