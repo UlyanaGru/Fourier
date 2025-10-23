@@ -38,7 +38,7 @@ def set_param_matplotlib(name,rcParamsName,rcParamsVal):
     """
     name.rcParams[rcParamsName] = rcParamsVal
 
-nx_max = 1500
+nx_max = 3000
 ny_max = 30
 dt_step = 0.001
 x_frac_start = 0.3 
@@ -70,9 +70,9 @@ print(f"LMax = {lmax:.4g}")
 def N2X(n,dx):
     return n*dx
 #choose points
-n1 = 1000
+n1 = 2500
 xp1 = N2X(n1,dxmesh)
-n2 = 1020
+n2 = 2520
 xp2 = N2X(n2,dxmesh)
 print(f"delta21 = {xp2-xp1:.4g}")
 name1 = "N" + str(n1)
