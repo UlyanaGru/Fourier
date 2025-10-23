@@ -60,7 +60,7 @@ ax1 = ax
 xmesh = np.linspace(0, 114.770, data.shape[1]) 
 tmesh = np.linspace(0, data.shape[0]*0.001, data.shape[0])
 im1 = ax1.pcolor(xmesh,tmesh,data, cmap='Greys') 
-plt.colorbar(im1, label='$\\delta \mathrm{,\ мм}$')
+plt.colorbar(im1, label=r'$\\delta \mathrm{,\ мм}$')
 ax1.set_xlabel("Длина, мм")
 ax1.set_ylabel("Время, с")
 plt.tight_layout()
@@ -73,7 +73,7 @@ nt, nx = data_detrend.shape
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
 im1 = ax1.pcolor(xmesh[xf_ind:xl_ind],tmesh[tf_ind:],data_detrend, cmap='Greys') 
-plt.colorbar(im1, label='$\\delta - \\overline{\\delta}\mathrm{,\ мм}$')
+plt.colorbar(im1, label=r'$\\delta - \\overline{\\delta}\mathrm{,\ мм}$')
 ax1.set_xlabel("Длина, мм")
 ax1.set_ylabel("Время, с")
 plt.tight_layout()
