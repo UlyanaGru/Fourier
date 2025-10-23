@@ -37,7 +37,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy.fft import fft2, fftshift, fftfreq
 
-nx_max = 750
+nx_max = 1500
 ny_max = 30
 dt_step = 0.001
 x_frac_start = 0.3 
@@ -109,7 +109,7 @@ u_phys = freq_phys * lambda_phys            # фазовая скорость, м/с
 print(f"Длина волны: {np.abs(lambda_phys*100.0):.4f} см")
 print(f"Частота: {np.abs(freq_phys):.4f} Гц")
 print(f"Фазовая скорость: {np.abs(u_phys*100.0):.4f} см/с")
-print(f"Отклонение фазвой скорости от экспериментальной: {np.abs((u_phys*100.0 - 21.7)/21.7):.4f} см/с")
+print(f"Отклонение фазвой скорости от экспериментальной: {np.abs((u_phys*100.0 - 21.7)/21.7):.4f} %")
 
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
