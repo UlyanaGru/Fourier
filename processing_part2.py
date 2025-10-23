@@ -59,7 +59,8 @@ with open(filename, 'r') as f:
     first_line = f.readline().strip() #1st strip
     #for structured mesh read width CV dx
     dxmesh = float(first_line)
-last_column_name = data.columns[-1]
+data_ = pd.read_csv(filename, sep=',', skiprows=1)
+last_column_name = data_.columns[-1]
 nmax = int(last_column_name[1:])
 lmax = nmax*dxmesh
 print(f"dxmesh = {dxmesh:.4g}")
@@ -76,9 +77,9 @@ xp2 = N2X(n2,dxmesh)
 print(f"delta21 = {xp2-xp1:.4g}")
 name1 = "N" + str(n1)
 name2 = "N" + str(n2)
-tval = np.array(data["Time"])
-delta1 = np.array(data[name1])
-delta2 = np.array(data[name2])
+tval = np.array(data_["Time"])
+delta1 = np.array(data_[name1])
+delta2 = np.array(data_[name2])
 
 data = data[:, 1:]*1.0e3 
 data = data[tf_ind:, xf_ind:xl_ind]
@@ -98,7 +99,7 @@ nameX = r'$\mathrm{Время,\ мс}$'
 nameY = r'$\delta \mathrm{,\ мм}$'
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
-ax1.plot(tval*1.0e3,delta1*1.0e3,'-b',label = f"{xp1*1e3:.2g} мм")
+ax1.plot(tval*1.0e3,delta1*1.0e3,'-b',label = f"{xp1*1e3:.4g} мм")
 ax1.set_xlim(xmin = 0.0)
 ax1.set_ylim(ymin = 0.0)
 ax1.set_xlabel(nameX)
