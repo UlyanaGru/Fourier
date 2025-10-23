@@ -37,8 +37,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy.fft import fft2, fftshift, fftfreq
 
-nx_max = 3000
-ny_max = 30
+nx_max = 1500
+ny_max = 60
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.8
