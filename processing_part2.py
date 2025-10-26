@@ -38,7 +38,7 @@ def set_param_matplotlib(name,rcParamsName,rcParamsVal):
     """
     name.rcParams[rcParamsName] = rcParamsVal
 
-nx_max = 3000
+nx_max = 750
 ny_max = 30
 dt_step = 0.001
 x_frac_start = 0.3 
@@ -70,9 +70,9 @@ print(f"LMax = {lmax:.4g}")
 def N2X(n,dx):
     return n*dx
 #choose points
-n1 = 2500
+n1 = 495
 xp1 = N2X(n1,dxmesh)
-n2 = 2520
+n2 = 505
 xp2 = N2X(n2,dxmesh)
 print(f"delta21 = {xp2-xp1:.4g}")
 name1 = "N" + str(n1)
@@ -95,6 +95,9 @@ power = np.abs(spec2)**2
 freqs = fftshift(fftfreq(nt, d=1.0))     # шт / t-ед.
 wavenums = fftshift(fftfreq(nx, d=1.0))
 
+import matplotlib as mpl
+mpl.rcParams['axes.labelsize'] = 20
+
 nameX = r'$\mathrm{Время,\ мс}$'
 nameY = r'$\delta \mathrm{,\ мм}$'
 fig, ax = plt.subplots(nrows=1,ncols = 1)
@@ -104,6 +107,7 @@ ax1.set_xlim(xmin = 0.0)
 ax1.set_ylim(ymin = 0.0)
 ax1.set_xlabel(nameX)
 ax1.set_ylabel(nameY)
+plt.tick_params(axis='both', which='major', labelsize=16)
 ax1.legend(loc='lower right')
 plt.tight_layout()
 plt.show()
