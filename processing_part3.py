@@ -1,5 +1,5 @@
 # -*- coding: cp1251 -*-
-# от part1 отличается тем, что тут просто 
+
 def init_matplotlib(name):
     import matplotlib.font_manager as font_manager
 
@@ -43,12 +43,6 @@ dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.8
 t_start = 0.7
-#список с значениям получишихся длин волн в точках от 0 до 1500
-lenght_waves = np.list()
-#список с значениям получишихся частот в точках от 0 до 1500
-freq_waves = np.list()
-#список с значениям получишихся фазовых скоростей в точках от 0 до 1500
-uw_waves = np.list()
 
 filename = f"./data/s2d_film_time_statistic_{nx_max}_{ny_max}.dat"
 with open(filename, "r") as f:
@@ -126,10 +120,3 @@ ax1.set_xlabel("Волновое число k, шт / x-ед.")
 ax1.set_ylabel("Частота f, шт / t-ед.")
 plt.tight_layout()
 plt.show()
-
-#Попытка 1D-анализа для сигнала в каждой отдельной точке с выводом на график
-for x_id in range(nx_max):
-    #Временной ряд для текущей точки
-    time_series = data[tf_ind:,x_id]
-    #Вычитание среднего (чтоб явные пики были) - удалить тренд -> анализ лучше
-    
