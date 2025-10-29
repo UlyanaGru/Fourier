@@ -122,36 +122,26 @@ plt.tight_layout()
 plt.show()
 
 #Попытка 2D-анализа для сигнала в каждой отдельной точке с выводом на график
-#список с значениям получишихся длин волн в точках от 0 до 1500
+#список с значениям получившихся длин волн в точках от 0 до 1500
 lenght_waves = list()
-#список с значениям получишихся частот в точках от 0 до 1500
+#список с значениям получившихся частот в точках от 0 до 1500
 freq_waves = list()
-#список с значениям получишихся фазовых скоростей в точках от 0 до 1500
+#список с значениям получившихся фазовых скоростей в точках от 0 до 1500
 uw_waves = list()
 
 for x_id in range(nx_max):
-    window_size = 50
-    start_x = max(0, x_id - window_size // 2)
-    end_x = min(nx_max, x_id + window_size // 2 + 1)
-    
-    data_window = data[tf_ind:, start_x:end_x]
-    nt, nx_local = data_window.shape
-    
-    if nt == 0 or nx_local == 0:
-        lenght_waves.append(0)
-        freq_waves.append(0)
-        uw_waves.append(0)
-        continue
-    
-    data_detrend = data_window - np.mean(data_window, axis=1, keepdims=True)
+    end_x = min(nx_max, x_id+1)
+    start_x = max(0,x_id)
+    data_detrend = data - np.mean(data, axis=1, keepdims=True)
+    nt, nx = data_detrend.shape
+    #тут 2D FFT
     win_t = np.hanning(nt)[:, None]
-    win_x = np.hanning(nx_local)[None, :]
+    win_x = np.hanning(nx)[None, :]
     data_win = data_detrend * win_t * win_x
-    spec2 = np.fft.fft2(data_win)
-    spec2_shift = np.fft.fftshift(spec2)
-    power = np.abs(spec2_shift)**2
-    freqs = np.fft.fftshift(np.fft.fftfreq(nt, d=dt_step))
-    wavenums = np.fft.fftshift(np.fft.fftfreq(nx_local, d=dx_step))
+    spec2 = fftshift(fft2(data_win))
+    power = np.abs(spec2)**2 
+    freqs = fftshift(fftfreq(nt, d=1.0))     # шт / t-ед.
+    wavenums = fftshift(fftfreq(nx, d=1.0))  # шт / x-ед
     power_flat = power.copy()
     peak_idx = np.unravel_index(np.argmax(power_flat), power_flat.shape)
     f_peak = freqs[peak_idx[0]]
@@ -160,9 +150,10 @@ for x_id in range(nx_max):
         u_phase = f_peak / k_peak
     else:
         u_phase = np.nan
-    lambda_phys = 1 / (k_peak / dx_step) if k_peak != 0 else np.nan
-    freq_phys = f_peak / dt_step
-    u_phys = freq_phys * lambda_phys if not np.isnan(lambda_phys) else np.nan
+    lambda_phys = 1 / (k_peak / dx_step)       # длина волны, м
+    freq_phys = f_peak / dt_step                     # частота, Гц
+    u_phys = freq_phys * lambda_phys            # фазовая скорость, м/с
+    #обработка
     lenght_waves.append(np.abs(lambda_phys*100) if not np.isnan(lambda_phys) else 0)
     freq_waves.append(np.abs(freq_phys) if not np.isnan(freq_phys) else 0)
     uw_waves.append(np.abs(u_phys*100) if not np.isnan(u_phys) else 0)
@@ -171,17 +162,23 @@ lenght_waves = np.array(lenght_waves)
 freq_waves = np.array(freq_waves)
 uw_waves = np.array(uw_waves)
 
+ymin0, ymax0 = 0.815, 0.825
+ymin1, ymax1 = 27.0, 27.1
+ymin2, ymax2 = 21., 23.
 
 fig, axes = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
 axes[0].plot(range(nx_max), lenght_waves, 'b-', linewidth=1)
 axes[0].set_ylabel('Длина волны, см')
+axes[0].set_ylim(ymin0, ymax0)
 axes[0].grid(True)
 axes[1].plot(range(nx_max), freq_waves, 'r-', linewidth=1)
 axes[1].set_ylabel('Частота, Гц')
+axes[1].set_ylim(ymin1, ymax1)
 axes[1].grid(True)
 axes[2].plot(range(nx_max), uw_waves, 'g-', linewidth=1)
 axes[2].set_ylabel('Фазовая скорость, см/с')
 axes[2].set_xlabel('x-позиция')
+axes[2].set_ylim(ymin2, ymax2)
 axes[2].grid(True)
 plt.tight_layout()
 plt.show()
