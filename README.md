@@ -21,14 +21,22 @@ pip install numpy pandas matplotlib scipy
 <div align="center">
 <table>
 <tr>
-<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh2_with_phase.png" width="200"></td>
-<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_fklog10.png" width="200"></td>
-<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg" width="200"></td>
+<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh2_with_phase.png" width="600"></td>
 </tr>
 <tr>
-<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_ampl.png" width="200"></td>
-<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/3Dsurf.png" width="200"></td>
-<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_time_length_delta_filtred.png" width="200"></td>
+<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_fklog10.png" width="600"></td>
+</tr>
+<tr>
+<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg" width="600"></td>
+</tr>
+<tr>
+<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_ampl.png" width="600"></td>
+</tr>
+<tr>
+<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/3Dsurf.png" width="600"></td>
+</tr>
+<tr>
+<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_time_length_delta_filtred.png" width="600"></td>
 </tr>
 </table>
 </div>
