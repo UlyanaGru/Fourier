@@ -18,17 +18,33 @@ A comprehensive Python-based signal processing toolkit for analyzing wave propag
 ```bash
 pip install numpy pandas matplotlib scipy
 ```
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh2_with_phase.png" 
-         style="width: 300px; height: 200px; object-fit: contain;">
-    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_fklog10.png" 
-         style="width: 300px; height: 200px; object-fit: contain;">
-    <img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg" 
-         style="width: 300px; height: 200px; object-fit: contain;">
-    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_ampl.png" 
-         style="width: 300px; height: 200px; object-fit: contain;">
-    <img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/3Dsurf.png" 
-         style="width: 300px; height: 200px; object-fit: contain;">
-    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_time_length_delta_filtred.png" 
-         style="width: 300px; height: 200px; object-fit: contain;">
+<style>
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.image-grid img {
+    width: 100%;
+    max-width: 350px;
+    height: 250px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+
+<div class="image-grid">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh2_with_phase.png" alt="Mesh 2 with phase">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_fklog10.png" alt="Mesh 3 FK log10">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg" alt="Frequency">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_ampl.png" alt="Mesh 3 amplitude">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/3Dsurf.png" alt="3D surface">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_time_length_delta_filtred.png" alt="Time length delta filtered">
 </div>
