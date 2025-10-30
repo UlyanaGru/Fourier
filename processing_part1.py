@@ -1,5 +1,4 @@
 # -*- coding: cp1251 -*-
-# от part1 отличается тем, что тут просто 
 def init_matplotlib(name):
     import matplotlib.font_manager as font_manager
 
