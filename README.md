@@ -18,9 +18,17 @@ A comprehensive Python-based signal processing toolkit for analyzing wave propag
 ```bash
 pip install numpy pandas matplotlib scipy
 ```
-![1](https://github.com/UlyanaGru/Fourier/blob/master/mesh2_with_phase.png)
-![2](https://github.com/UlyanaGru/Fourier/blob/master/mesh3_fklog10.png)
-![3](https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg)
-![4](https://github.com/UlyanaGru/Fourier/blob/master/mesh3_ampl.png)
-![5](https://github.com/UlyanaGru/Fourier/blob/master/figout/3Dsurf.png)
-![6](https://github.com/UlyanaGru/Fourier/blob/master/mesh3_time_length_delta_filtred.png)
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh2_with_phase.png" 
+         style="width: 300px; height: 200px; object-fit: contain;">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_fklog10.png" 
+         style="width: 300px; height: 200px; object-fit: contain;">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/freq_.jpg" 
+         style="width: 300px; height: 200px; object-fit: contain;">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_ampl.png" 
+         style="width: 300px; height: 200px; object-fit: contain;">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/figout/3Dsurf.png" 
+         style="width: 300px; height: 200px; object-fit: contain;">
+    <img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_time_length_delta_filtred.png" 
+         style="width: 300px; height: 200px; object-fit: contain;">
+</div>
