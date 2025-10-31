@@ -54,6 +54,7 @@ xl_ind = int(x_frac_end*nx_max)
 data = np.loadtxt(filename, skiprows=2, delimiter=',')
 data_time = data[:, 0]
 data = data[:, 1:]*1.0e3
+index = np.argmax(data_time[data_time>0.7])
 
 #-Для последнего момента времени
 
@@ -79,37 +80,16 @@ plt.show()
 
 #-Для всех времен
 
-peaks_ind = []
-peaks_values = []
-x_coords = []
-max_peaks = []
-min_peaks = []
-ampl_waves = []
-for i in range(len(list(data_time))):
-    data_slice = data[i, :]  #массив по пространству
-    peaks, properties = find_peaks(data_slice)
-    peaks_ind.append(peaks)
-    peaks_values.append(data_slice[peaks])
-    #есть ли пик
-    if len(peaks) > 0:
-        current_peaks = data_slice[peaks]
-        peaks_values.append(current_peaks)
-        max_peaks.append(np.max(current_peaks))
-        min_peaks.append(np.min(current_peaks))
-        ampl_waves.append((np.max(current_peaks) - np.min(current_peaks))/(np.max(current_peaks) + np.min(current_peaks)))
-    else:
-        #nan
-        peaks_values.append(np.array([]))
-        max_peaks.append(np.nan)
-        min_peaks.append(np.nan)
-        ampl_waves.append(np.nan)
-    
-x_coords = np.arange(0, dx_step * len(data_slice), dx_step)
-
-plt.plot(data_time,ampl_waves, 'b-')
-plt.xlabel('Время, с', fontsize=18)
+index = np.argmax(data_time[data_time>0.7])
+data = np.loadtxt(filename, skiprows=2, delimiter=',')
+data_slice = data[index:, :]
+max_val = np.max(data_slice, axis=1, keepdims=False)
+min_val = np.min(data_slice, axis=1, keepdims=False)
+ampl_waves = (max_val-min_val)/(min_val+max_val)
+x_coords = np.arange(0, len(ampl_waves), 1)
+plt.plot(x_coords, ampl_waves, 'b-')
+plt.xlabel('Координата, мм', fontsize=18)
 plt.ylabel(r'$\alpha = \frac{\alpha_{\max} - \alpha_{\min}}{\alpha_{\max} + \alpha_{\min}}$', fontsize=18)
-plt.legend()
 plt.grid(True, alpha=0.3)
-plt.title(f'Амлитуда волн, б/м', fontsize=20)
+plt.title(f'Амплитуда волн, б/м', fontsize=20)
 plt.show()
