@@ -79,10 +79,8 @@ plt.title(f'Пики толщины пленки в последний моме�
 plt.show()
 
 #-Для всех времен
-
-index = np.argmax(data_time[data_time>0.7])
-data = np.loadtxt(filename, skiprows=2, delimiter=',')
-data_slice = data[index:, :]
+data = pd.read_csv(filename, sep=',', header=1, low_memory=False)
+data_slice = np.copy(data[data['Time']>0.7].iloc[:,1:])
 max_val = np.max(data_slice, axis=1, keepdims=False)
 min_val = np.min(data_slice, axis=1, keepdims=False)
 ampl_waves = (max_val-min_val)/(min_val+max_val)
