@@ -38,7 +38,7 @@ from scipy.signal import find_peaks
 import pandas as pd
 
 nx_max = 1500
-ny_max = 60
+ny_max = 30
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.8
@@ -86,6 +86,7 @@ min_val = np.min(data_slice, axis=1, keepdims=False)
 ampl_waves = (max_val-min_val)/(min_val+max_val)
 x_coords = np.arange(0, len(ampl_waves), 1)
 plt.plot(x_coords, ampl_waves, 'b-')
+plt.ylim(0,0.6)
 plt.xlabel('Координата, мм', fontsize=18)
 plt.ylabel(r'$\alpha = \frac{\alpha_{\max} - \alpha_{\min}}{\alpha_{\max} + \alpha_{\min}}$', fontsize=18)
 plt.grid(True, alpha=0.3)
