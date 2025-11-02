@@ -38,5 +38,8 @@ pip install numpy pandas matplotlib scipy
 <tr>
 <td><img src="https://github.com/UlyanaGru/Fourier/blob/master/mesh3_time_length_delta_filtred.png" width="600"></td>
 </tr>
+<tr>
+<td><img src="https://github.com/UlyanaGru/Fourier/blob/master/Kapitza_1500x30.png" width="600"></td>
+</tr>
 </table>
 </div>
