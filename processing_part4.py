@@ -54,7 +54,7 @@ xl_ind = int(x_frac_end*nx_max)
 data = np.loadtxt(filename, skiprows=2, delimiter=',')
 data_time = data[:, 0]
 data = data[:, 1:]*1.0e3
-index = np.argmax(data_time[data_time>0.7])
+index = np.argmax(data_time[data_time>0.2])
 
 #-Для последнего момента времени
 
