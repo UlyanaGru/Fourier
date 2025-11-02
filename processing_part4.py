@@ -38,7 +38,7 @@ from scipy.signal import find_peaks
 import pandas as pd
 
 nx_max = 1500
-ny_max = 30
+ny_max = 60
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.8
@@ -79,15 +79,15 @@ plt.title(f'Пики толщины пленки в последний моме�
 plt.show()
 
 #-Для всех времен
-data = pd.read_csv(filename, sep=',', header=1, low_memory=False)
-data_slice = np.copy(data[data['Time']>0.7].iloc[:,1:])
-max_val = np.max(data_slice, axis=1, keepdims=False)
-min_val = np.min(data_slice, axis=1, keepdims=False)
-ampl_waves = (max_val-min_val)/(min_val+max_val)
-x_coords = np.arange(0, len(ampl_waves), 1)
-plt.plot(x_coords, ampl_waves, 'b-')
-plt.ylim(0,0.6)
-plt.xlabel('Координата, мм', fontsize=18)
+data = np.loadtxt(filename, skiprows=2, delimiter=',')
+data = data[:, 1:]*1.0e3 
+data_amlitude = np.copy(data[tf_ind:, :])
+max_val = np.max(data_amlitude, axis=0, keepdims=False)
+min_val = np.min(data_amlitude, axis=0, keepdims=False)
+amlitude = (max_val - min_val)/(max_val + min_val)
+x_coords = np.arange(0,amlitude.shape[0],1)
+plt.plot(x_coords, amlitude, 'b-')
+plt.xlabel('Длина, КО', fontsize=18)
 plt.ylabel(r'$\alpha = \frac{\alpha_{\max} - \alpha_{\min}}{\alpha_{\max} + \alpha_{\min}}$', fontsize=18)
 plt.grid(True, alpha=0.3)
 plt.title(f'Амплитуда волн, б/м', fontsize=20)
