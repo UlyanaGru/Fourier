@@ -39,12 +39,13 @@ import pandas as pd
 
 nx_max = 1500
 ny_max = 60
+v = 1
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.8
 t_start = 0.7
 
-filename = f"./data/s2d_film_time_statistic_{nx_max}_{ny_max}.dat"
+filename = f"./data/s2d_film_time_statistic_{nx_max}_{ny_max}_{v}.dat"
 with open(filename, "r") as f:
     first_line = f.readline().strip()
     dx_step = float(first_line)
