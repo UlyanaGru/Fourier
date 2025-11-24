@@ -39,10 +39,10 @@ import pandas as pd
 
 nx_max = 1500
 ny_max = 60
-v = 5
+v = 61
 dt_step = 0.001
 x_frac_start = 0.3 
-x_frac_end = 0.8
+x_frac_end = 0.4
 t_start = 0.7
 
 filename = f"./data/s2d_film_time_statistic_{nx_max}_{ny_max}_{v}.dat"
@@ -52,7 +52,7 @@ with open(filename, "r") as f:
 tf_ind = int(t_start/dt_step)
 xf_ind = int(x_frac_start*nx_max)
 xl_ind = int(x_frac_end*nx_max)
-data = np.loadtxt(filename, skiprows=2, delimiter=',')
+data = np.loadtxt(filename, skiprows=2, delimiter=',', usecols=range(1,920))
 data_time = data[:, 0]
 data = data[:, 1:]*1.0e3
 index = np.argmax(data_time[data_time>0.2])

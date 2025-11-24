@@ -28,7 +28,7 @@ def init_matplotlib(name):
 
 def set_param_matplotlib(name,rcParamsName,rcParamsVal):
     """
-    Изменение базовых настроек графиков
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     """
     name.rcParams[rcParamsName] = rcParamsVal
 
@@ -38,7 +38,7 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 5
+v = 6
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.8
@@ -60,9 +60,9 @@ ax1 = ax
 xmesh = np.linspace(0, 114.770, data.shape[1]) 
 tmesh = np.linspace(0, data.shape[0]*0.001, data.shape[0])
 im1 = ax1.pcolor(xmesh,tmesh,data, cmap='Greys') 
-plt.colorbar(im1, label='$\\delta \mathrm{,\ мм}$')
-ax1.set_xlabel("Длина, мм")
-ax1.set_ylabel("Время, с")
+plt.colorbar(im1, label='$\\delta \mathrm{,\ пїЅпїЅ}$')
+ax1.set_xlabel("пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ")
+ax1.set_ylabel("пїЅпїЅпїЅпїЅпїЅ, пїЅ")
 plt.tight_layout()
 plt.show()
 
@@ -73,9 +73,9 @@ nt, nx = data_detrend.shape
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
 im1 = ax1.pcolor(xmesh[xf_ind:xl_ind],tmesh[tf_ind:],data_detrend, cmap='Greys') 
-plt.colorbar(im1, label='$\\delta - \\overline{\\delta}\mathrm{,\ мм}$')
-ax1.set_xlabel("Длина, мм")
-ax1.set_ylabel("Время, с")
+plt.colorbar(im1, label='$\\delta - \\overline{\\delta}\mathrm{,\ пїЅпїЅ}$')
+ax1.set_xlabel("пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ")
+ax1.set_ylabel("пїЅпїЅпїЅпїЅпїЅ, пїЅ")
 plt.tight_layout()
 plt.show()
 
@@ -86,47 +86,47 @@ data_win = data_detrend * win_t * win_x
 
 spec2 = fftshift(fft2(data_win))
 power = np.abs(spec2)**2 
-freqs = fftshift(fftfreq(nt, d=1.0))     # шт / t-ед.
-wavenums = fftshift(fftfreq(nx, d=1.0))  # шт / x-ед
+freqs = fftshift(fftfreq(nt, d=1.0))     # пїЅпїЅ / t-пїЅпїЅ.
+wavenums = fftshift(fftfreq(nx, d=1.0))  # пїЅпїЅ / x-пїЅпїЅ
 
-# --- Поиск пика ---
+# --- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ ---
 power_flat = power.copy()
 peak_idx = np.unravel_index(np.argmax(power_flat), power_flat.shape)
 f_peak = freqs[peak_idx[0]]
 k_peak = wavenums[peak_idx[1]]
 
-# --- Фазовая скорость ---
+# --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ---
 if k_peak != 0:
-    u_phase = f_peak / k_peak   # в единицах (пространственных точек / временной шаг)
+    u_phase = f_peak / k_peak   # пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ)
 else:
     u_phase = np.nan
 
-#print(f"Пик: f = {f_peak:.5f}, k = {k_peak:.5f}, u = {u_phase:.5f} точек / шаг по времени")
+#print(f"пїЅпїЅпїЅ: f = {f_peak:.5f}, k = {k_peak:.5f}, u = {u_phase:.5f} пїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
 
-lambda_phys = 1 / (k_peak / dx_step)       # длина волны, м
-freq_phys = f_peak / dt_step                     # частота, Гц
-u_phys = freq_phys * lambda_phys            # фазовая скорость, м/с
-print(f"Длина волны: {np.abs(lambda_phys*100.0):.4f} см")
-print(f"Частота: {np.abs(freq_phys):.4f} Гц")
-print(f"Фазовая скорость: {np.abs(u_phys*100.0):.4f} см/с")
-print(f"Отклонение фазвой скорости от экспериментальной: {np.abs((u_phys*100.0 - 21.7)/21.7):.4f} %")
+lambda_phys = 1 / (k_peak / dx_step)       # пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ
+freq_phys = f_peak / dt_step                     # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ
+u_phys = freq_phys * lambda_phys            # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ/пїЅ
+print(f"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: {np.abs(lambda_phys*100.0):.4f} пїЅпїЅ")
+print(f"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {np.abs(freq_phys):.4f} пїЅпїЅ")
+print(f"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {np.abs(u_phys*100.0):.4f} пїЅпїЅ/пїЅ")
+print(f"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {np.abs((u_phys*100.0 - 21.7)/21.7):.4f} %")
 
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
 im1 = ax1.imshow(np.log10(power + 1e-12), cmap='jet', aspect='auto', origin='lower', 
                     extent=(wavenums[0], wavenums[-1], freqs[0], freqs[-1]))
-plt.colorbar(im1, label=r'$\mathrm{Мощность (log10)}$')
-ax1.set_xlabel("Волновое число k, шт / x-ед.")
-ax1.set_ylabel("Частота f, шт / t-ед.")
+plt.colorbar(im1, label=r'$\mathrm{пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (log10)}$')
+ax1.set_xlabel("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ k, пїЅпїЅ / x-пїЅпїЅ.")
+ax1.set_ylabel("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ f, пїЅпїЅ / t-пїЅпїЅ.")
 plt.tight_layout()
 plt.show()
 
-#Попытка 2D-анализа для сигнала в каждой отдельной точке с выводом на график
-#список с значениям получившихся длин волн в точках от 0 до 1500
+#пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2D-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+#пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0 пїЅпїЅ 1500
 lenght_waves = list()
-#список с значениям получившихся частот в точках от 0 до 1500
+#пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0 пїЅпїЅ 1500
 freq_waves = list()
-#список с значениям получившихся фазовых скоростей в точках от 0 до 1500
+#пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0 пїЅпїЅ 1500
 uw_waves = list()
 
 for x_id in range(nx_max):
@@ -134,14 +134,14 @@ for x_id in range(nx_max):
     start_x = max(0,x_id)
     data_detrend = data - np.mean(data, axis=1, keepdims=True)
     nt, nx = data_detrend.shape
-    #тут 2D FFT
+    #пїЅпїЅпїЅ 2D FFT
     win_t = np.hanning(nt)[:, None]
     win_x = np.hanning(nx)[None, :]
     data_win = data_detrend * win_t * win_x
     spec2 = fftshift(fft2(data_win))
     power = np.abs(spec2)**2 
-    freqs = fftshift(fftfreq(nt, d=1.0))     # шт / t-ед.
-    wavenums = fftshift(fftfreq(nx, d=1.0))  # шт / x-ед
+    freqs = fftshift(fftfreq(nt, d=1.0))     # пїЅпїЅ / t-пїЅпїЅ.
+    wavenums = fftshift(fftfreq(nx, d=1.0))  # пїЅпїЅ / x-пїЅпїЅ
     power_flat = power.copy()
     peak_idx = np.unravel_index(np.argmax(power_flat), power_flat.shape)
     f_peak = freqs[peak_idx[0]]
@@ -150,10 +150,10 @@ for x_id in range(nx_max):
         u_phase = f_peak / k_peak
     else:
         u_phase = np.nan
-    lambda_phys = 1 / (k_peak / dx_step)       # длина волны, м
-    freq_phys = f_peak / dt_step                     # частота, Гц
-    u_phys = freq_phys * lambda_phys            # фазовая скорость, м/с
-    #обработка
+    lambda_phys = 1 / (k_peak / dx_step)       # пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ
+    freq_phys = f_peak / dt_step                     # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ
+    u_phys = freq_phys * lambda_phys            # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ/пїЅ
+    #пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     lenght_waves.append(np.abs(lambda_phys*100) if not np.isnan(lambda_phys) else 0)
     freq_waves.append(np.abs(freq_phys) if not np.isnan(freq_phys) else 0)
     uw_waves.append(np.abs(u_phys*100) if not np.isnan(u_phys) else 0)
@@ -168,16 +168,16 @@ ymin2, ymax2 = 21., 23.
 
 # fig, axes = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
 # axes[0].plot(range(nx_max), lenght_waves, 'b-', linewidth=1)
-# axes[0].set_ylabel('Длина волны, см')
+# axes[0].set_ylabel('пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ')
 # axes[0].set_ylim(ymin0, ymax0)
 # axes[0].grid(True)
 # axes[1].plot(range(nx_max), freq_waves, 'r-', linewidth=1)
-# axes[1].set_ylabel('Частота, Гц')
+# axes[1].set_ylabel('пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ')
 # axes[1].set_ylim(ymin1, ymax1)
 # axes[1].grid(True)
 # axes[2].plot(range(nx_max), uw_waves, 'g-', linewidth=1)
-# axes[2].set_ylabel('Фазовая скорость, см/с')
-# axes[2].set_xlabel('x-позиция')
+# axes[2].set_ylabel('пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ/пїЅ')
+# axes[2].set_xlabel('x-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ')
 # axes[2].set_ylim(ymin2, ymax2)
 # axes[2].grid(True)
 # plt.tight_layout()
