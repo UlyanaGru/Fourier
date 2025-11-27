@@ -39,7 +39,7 @@ import pandas as pd
 
 nx_max = 1500
 ny_max = 60
-v = 3
+v = 1
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.4
@@ -93,3 +93,5 @@ plt.ylabel(r'$\alpha = \frac{\alpha_{\max} - \alpha_{\min}}{\alpha_{\max} + \alp
 plt.grid(True, alpha=0.3)
 plt.title(f'Амплитуда волн, б/м', fontsize=20)
 plt.show()
+
+print(dx_step)
