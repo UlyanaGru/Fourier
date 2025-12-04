@@ -39,7 +39,7 @@ import pandas as pd
 
 nx_max = 1500
 ny_max = 60
-v = 6
+v = 7
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.5
