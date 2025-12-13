@@ -52,7 +52,13 @@ with open(filename, "r") as f:
 tf_ind = int(t_start/dt_step)
 xf_ind = int(x_frac_start*nx_max)
 xl_ind = int(x_frac_end*nx_max)
-data = np.loadtxt(filename, skiprows=2, delimiter=',')
+#data = np.loadtxt(filename, skiprows=2, delimiter=',')
+data = np.genfromtxt(
+    filename, 
+    skip_header=2,
+    delimiter=',', 
+    usecols=range(1329),
+    missing_values='')
 data_time = data[:, 0]
 data = data[:, 1:]*1.0e3
 index = np.argmax(data_time[data_time>0.2])
@@ -80,7 +86,13 @@ plt.title(f'Пики толщины пленки в последний моме�
 plt.show()
 
 #-Для всех времен
-data = np.loadtxt(filename, skiprows=2, delimiter=',')
+#data = np.loadtxt(filename, skiprows=2, delimiter=',')
+data = np.genfromtxt(
+    filename, 
+    skip_header=2,
+    delimiter=',', 
+    usecols=range(1329),
+    missing_values='')
 data = data[:, 1:]*1.0e3 
 data_amlitude = np.copy(data[tf_ind:, :])
 max_val = np.max(data_amlitude, axis=0, keepdims=False)

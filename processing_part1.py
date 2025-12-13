@@ -38,7 +38,7 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 2
+v = 3
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 1.0
@@ -52,7 +52,13 @@ with open(filename, "r") as f:
 tf_ind = int(t_start/dt_step)
 xf_ind = int(x_frac_start*nx_max)
 xl_ind = int(x_frac_end*nx_max)
-data = np.loadtxt(filename, skiprows=2, delimiter=',', usecols=range(1,1500))
+#data = np.loadtxt(filename, skiprows=2, delimiter=',')
+data = np.genfromtxt(
+    filename, 
+    skip_header=2,
+    delimiter=',', 
+    usecols=range(1329),
+    missing_values='')
 data = data[:, 1:]*1.0e3 
 
 fig, ax = plt.subplots(nrows=1,ncols = 1)
