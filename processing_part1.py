@@ -52,15 +52,15 @@ with open(filename, "r") as f:
 tf_ind = int(t_start/dt_step)
 xf_ind = int(x_frac_start*nx_max)
 xl_ind = int(x_frac_end*nx_max)
-#data = np.loadtxt(filename, skiprows=2, delimiter=',')
-data = np.genfromtxt(
+data = np.loadtxt(filename, skiprows=2, delimiter=',')
+""" data = np.genfromtxt(
     filename, 
     skip_header=2,
     delimiter=',', 
     usecols=range(1314),
     missing_values='')
 data = data[:, 1:]*1.0e3 
-
+ """
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
 xmesh = np.linspace(0, 114.770, data.shape[1]) 
