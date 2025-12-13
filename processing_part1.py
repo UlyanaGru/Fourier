@@ -38,7 +38,7 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 5
+v = 6
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 0.8
@@ -57,7 +57,7 @@ data = np.genfromtxt(
     filename, 
     skip_header=2,
     delimiter=',', 
-    usecols=range(1267),
+    usecols=range(1314),
     missing_values='')
 data = data[:, 1:]*1.0e3 
 
