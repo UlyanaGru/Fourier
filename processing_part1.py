@@ -57,7 +57,7 @@ data = np.genfromtxt(
     filename, 
     skip_header=2,
     delimiter=',', 
-    usecols=range(1329),
+    usecols=range(1267),
     missing_values='')
 data = data[:, 1:]*1.0e3 
 
