@@ -39,7 +39,7 @@ import pandas as pd
 
 nx_max = 1500
 ny_max = 60
-v = 3
+v = 4
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 1.0
@@ -57,7 +57,7 @@ data = np.genfromtxt(
     filename, 
     skip_header=2,
     delimiter=',', 
-    usecols=range(1329),
+    usecols=range(1460),
     missing_values='')
 data_time = data[:, 0]
 data = data[:, 1:]*1.0e3
@@ -91,7 +91,7 @@ data = np.genfromtxt(
     filename, 
     skip_header=2,
     delimiter=',', 
-    usecols=range(1329),
+    usecols=range(1460),
     missing_values='')
 data = data[:, 1:]*1.0e3 
 data_amlitude = np.copy(data[tf_ind:, :])

@@ -38,10 +38,10 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 3
+v = 5
 dt_step = 0.001
 x_frac_start = 0.3 
-x_frac_end = 1.0
+x_frac_end = 0.8
 t_start = 0.7
 
 filename = f"./data_variousG_6-12/s2d_film_time_statistic_v{v}.dat"
