@@ -76,7 +76,7 @@ peaks_values = data_slice[peaks]
 x_coords = np.arange(0, dx_step * len(data_slice), dx_step)
 #print(f"Размер x_coords: {x_coords.shape}")
 #print(f"Размер data_slice: {data_slice.shape}")
-plt.plot(x_coords, data_slice, 'r-', label='Толщина пленки, мм')
+""" plt.plot(x_coords, data_slice, 'r-', label='Толщина пленки, мм')
 plt.plot(x_coords[peaks], peaks_values, 'xb', label='Пики')
 plt.xlabel('Координата по пластине')
 plt.ylabel('Толщина пленки')
@@ -84,7 +84,7 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.title(f'Пики толщины пленки в последний момент времени')
 plt.show()
-
+ """
 #-Для всех времен
 data = np.loadtxt(filename, skiprows=2, delimiter=',')
 """ data = np.genfromtxt(

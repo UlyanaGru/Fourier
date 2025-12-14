@@ -29,7 +29,7 @@ def init_matplotlib(name):
 
 def set_param_matplotlib(name,rcParamsName,rcParamsVal):
     """
-    Изменение базовых настроек графиков
+    ????????? ??????? ???????? ????????
     """
     name.rcParams[rcParamsName] = rcParamsVal
 
@@ -61,10 +61,11 @@ nt, nx = data_detrend.shape
 
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
+ax.tick_params(axis='both', labelsize=12)
 im1 = ax1.pcolor(data_detrend, cmap='Greys') 
-plt.colorbar(im1, label='$\\delta - \\overline{\\delta}\mathrm{,\ мм}$')
-ax1.set_xlabel("Длина, в x-ед.")
-ax1.set_ylabel("Время, в t-ед.")
+plt.colorbar(im1, label='$\\delta - \\overline{\\delta}\mathrm{,\ ??}$')
+ax1.set_xlabel("?????, ? x-??.")
+ax1.set_ylabel("?????, ? t-??.")
 plt.tight_layout()
 plt.show()
 
@@ -75,36 +76,37 @@ data_win = data_detrend * win_t * win_x
 
 spec2 = fftshift(fft2(data_win))
 power = np.abs(spec2)**2 
-freqs = fftshift(fftfreq(nt, d=1.0))     # шт / t-ед.
-wavenums = fftshift(fftfreq(nx, d=1.0))  # шт / x-ед
+freqs = fftshift(fftfreq(nt, d=1.0))     # ?? / t-??.
+wavenums = fftshift(fftfreq(nx, d=1.0))  # ?? / x-??
 
-# --- Поиск пика ---
+# --- ????? ???? ---
 power_flat = power.copy()
 peak_idx = np.unravel_index(np.argmax(power_flat), power_flat.shape)
 f_peak = freqs[peak_idx[0]]
 k_peak = wavenums[peak_idx[1]]
 
-# --- Фазовая скорость ---
+# --- ??????? ???????? ---
 if k_peak != 0:
-    u_phase = f_peak / k_peak   # в единицах (пространственных точек / временной шаг)
+    u_phase = f_peak / k_peak   # ? ???????? (???????????????? ????? / ????????? ???)
 else:
     u_phase = np.nan
 
-#print(f"Пик: f = {f_peak:.5f}, k = {k_peak:.5f}, u = {u_phase:.5f} точек / шаг по времени")
+#print(f"???: f = {f_peak:.5f}, k = {k_peak:.5f}, u = {u_phase:.5f} ????? / ??? ?? ???????")
 
-lambda_phys = 1 / (k_peak / dx_step)       # длина волны, м
-freq_phys = f_peak / dt_step                     # частота, Гц
-u_phys = freq_phys * lambda_phys            # фазовая скорость, м/с
-print(f"Длина волны: {np.abs(lambda_phys*100.0):.4f} см")
-print(f"Частота: {np.abs(freq_phys):.4f} Гц")
-print(f"Фазовая скорость: {np.abs(u_phys*100.0):.4f} см/с")
+lambda_phys = 1 / (k_peak / dx_step)       # ????? ?????, ?
+freq_phys = f_peak / dt_step                     # ???????, ??
+u_phys = freq_phys * lambda_phys            # ??????? ????????, ?/?
+print(f"????? ?????: {np.abs(lambda_phys*100.0):.4f} ??")
+print(f"???????: {np.abs(freq_phys):.4f} ??")
+print(f"??????? ????????: {np.abs(u_phys*100.0):.4f} ??/?")
 
 fig, ax = plt.subplots(nrows=1,ncols = 1)
+ax.tick_params(axis='both', labelsize=12)
 ax1 = ax
 im1 = ax1.imshow(np.log10(power + 1e-12), cmap='jet', aspect='auto', origin='lower', 
                     extent=(wavenums[0], wavenums[-1], freqs[0], freqs[-1]))
-plt.colorbar(im1, label='$\mathrm{Мощность (log10)}$')
-ax1.set_xlabel("Волновое число k, шт / x-ед.")
-ax1.set_ylabel("Частота f, шт / t-ед.")
+plt.colorbar(im1, label='$\mathrm{???????? (log10)}$')
+ax1.set_xlabel("???????? ????? k, ?? / x-??.")
+ax1.set_ylabel("??????? f, ?? / t-??.")
 plt.tight_layout()
 plt.show()
