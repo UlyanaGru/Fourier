@@ -104,6 +104,8 @@ plt.xlabel('Длина, КО', fontsize=18)
 plt.ylabel(r'$\alpha = \frac{\alpha_{\max} - \alpha_{\min}}{\alpha_{\max} + \alpha_{\min}}$', fontsize=18)
 plt.grid(True, alpha=0.3)
 plt.title(f'Амплитуда волн, б/м', fontsize=20)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
 plt.show()
 
 print(dx_step)
