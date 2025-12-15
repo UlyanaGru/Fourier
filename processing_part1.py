@@ -38,7 +38,7 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 6
+v = 1
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 1.0
