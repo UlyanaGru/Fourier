@@ -27,9 +27,6 @@ def init_matplotlib(name):
     name.rcParams["axes.formatter.use_locale"] = True
 
 def set_param_matplotlib(name,rcParamsName,rcParamsVal):
-    """
-    Изменение базовых настроек графиков
-    """
     name.rcParams[rcParamsName] = rcParamsVal
 
 import numpy as np
@@ -38,14 +35,14 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 6
+v = 8
+smo = 0
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 1.0
 t_start = 0.7
 
-filename = f"./data_variousG_6-12/s2d_film_time_statistic_v{v}.dat"
-#filename = f"./data/s2d_film_time_statistic_{nx_max}_{ny_max}.dat"
+filename = f"./datafilm/r{v}/r{v}smo{smo}.dat"
 with open(filename, "r") as f:
     first_line = f.readline().strip()
     dx_step = float(first_line)
@@ -54,23 +51,16 @@ tf_ind = int(t_start/dt_step)
 xf_ind = int(x_frac_start*nx_max)
 xl_ind = int(x_frac_end*nx_max)
 data = np.loadtxt(filename, skiprows=2, delimiter=',')
-""" data = np.genfromtxt(
-    filename, 
-    skip_header=2,
-    delimiter=',', 
-    usecols=range(1314),
-    missing_values='')
-data = data[:, 1:]*1.0e3 
- """
+
 fig, ax = plt.subplots(nrows=1,ncols = 1)
 ax1 = ax
 xmesh = np.linspace(0, 114.770, data.shape[1]) 
 tmesh = np.linspace(0, data.shape[0]*0.001, data.shape[0])
-im1 = ax1.pcolor(xmesh,tmesh,data, cmap='Greys')
+im1 = ax1.pcolor(xmesh,tmesh, data*1e3, cmap='Greys')
 cbar = plt.colorbar(im1)
 cbar.ax.tick_params(axis="both", labelsize=16)
 ax1.tick_params(axis="both", labelsize=16)
-cbar.set_label('$\\delta \mathrm{,\ м}$', fontsize=18)
+cbar.set_label('$\\delta \mathrm{,\ мм}$', fontsize=18)
 ax1.set_xlabel("Длина, мм", fontsize=18)
 ax1.set_ylabel("Время, с", fontsize=18)
 plt.tight_layout()
@@ -86,7 +76,7 @@ im1 = ax1.pcolor(xmesh[xf_ind:xl_ind], tmesh[tf_ind:], data_detrend*1e3, cmap='G
 cbar = plt.colorbar(im1)
 cbar.ax.tick_params(axis="both", labelsize=16)
 ax1.tick_params(axis="both", labelsize=16)
-cbar.set_label('$\\delta - \\overline{\\delta}\mathrm{,\ мкм}$', fontsize=18)
+cbar.set_label('$\\delta - \\overline{\\delta}\mathrm{,\ мм}$', fontsize=18)
 ax1.set_xlabel("Длина, мм", fontsize=18)
 ax1.set_ylabel("Время, с", fontsize=18)
 plt.tight_layout()
@@ -99,31 +89,28 @@ data_win = data_detrend * win_t * win_x
 
 spec2 = fftshift(fft2(data_win))
 power = np.abs(spec2)**2 
-freqs = fftshift(fftfreq(nt, d=1.0))     # пїЅпїЅ / t-пїЅпїЅ.
-wavenums = fftshift(fftfreq(nx, d=1.0))  # пїЅпїЅ / x-пїЅпїЅ
+freqs = fftshift(fftfreq(nt, d=1.0))
+wavenums = fftshift(fftfreq(nx, d=1.0))
 
-# --- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ ---
 power_flat = power.copy()
 peak_idx = np.unravel_index(np.argmax(power_flat), power_flat.shape)
 f_peak = freqs[peak_idx[0]]
 k_peak = wavenums[peak_idx[1]]
 
-# --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ---
+
 if k_peak != 0:
-    u_phase = f_peak / k_peak   # пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ)
+    u_phase = f_peak / k_peak
 else:
     u_phase = np.nan
 
-#print(f"пїЅпїЅпїЅ: f = {f_peak:.5f}, k = {k_peak:.5f}, u = {u_phase:.5f} пїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
-
-lambda_phys = 1 / (k_peak / dx_step)       # пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅ
-freq_phys = f_peak / dt_step                     # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ
-u_phys = freq_phys * lambda_phys            # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ/пїЅ
+lambda_phys = 1 / (k_peak / dx_step)
+freq_phys = f_peak / dt_step
+u_phys = freq_phys * lambda_phys
 print(f"Длина волны: {np.abs(lambda_phys*100.0):.4f} см")
 print(f"Частота: {np.abs(freq_phys):.4f} Гц")
 print(f"Фазовая скорость: {np.abs(u_phys*100.0):.4f} см/с")
 
-fig, ax = plt.subplots(nrows=1,ncols = 1)
+fig, ax = plt.subplots(nrows = 1,ncols = 1)
 ax1 = ax
 im1 = ax1.imshow(np.log10(power + 1e-12), cmap='jet', aspect='auto', origin='lower', 
                     extent=(wavenums[0], wavenums[-1], freqs[0], freqs[-1]))
