@@ -35,7 +35,7 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 8
+v = 9
 smo = 2
 dt_step = 0.001
 x_frac_start = 0.3 
@@ -52,10 +52,11 @@ xf_ind = int(x_frac_start*nx_max)
 xl_ind = int(x_frac_end*nx_max)
 data = np.loadtxt(filename, skiprows=2, delimiter=',')
 
-fig, ax = plt.subplots(nrows=1,ncols = 1)
-ax1 = ax
 xmesh = np.linspace(0, 114.770, data.shape[1]) 
 tmesh = np.linspace(0, data.shape[0]*0.001, data.shape[0])
+
+"""fig, ax = plt.subplots(nrows=1,ncols = 1)
+ax1 = ax
 im1 = ax1.pcolor(xmesh,tmesh, data*1e3, cmap='Greys')
 cbar = plt.colorbar(im1)
 cbar.ax.tick_params(axis="both", labelsize=16)
@@ -64,7 +65,7 @@ cbar.set_label('$\\delta \mathrm{,\ мм}$', fontsize=18)
 ax1.set_xlabel("Длина, мм", fontsize=18)
 ax1.set_ylabel("Время, с", fontsize=18)
 plt.tight_layout()
-plt.show()
+plt.show()"""
 
 data = data[tf_ind:, xf_ind:xl_ind]
 data_detrend = data - np.mean(data, axis=1, keepdims=True)
