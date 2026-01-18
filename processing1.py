@@ -36,11 +36,11 @@ from numpy.fft import fft2, fftshift, fftfreq
 nx_max = 1500
 ny_max = 60
 v = 11
-smo = 0
+smo = 2
 dt_step = 0.001
-x_frac_start = 0.3 
-x_frac_end = 1
-t_start = 0.7
+x_frac_start = 0.2 
+x_frac_end = 0.75
+t_start = 0.4
 
 filename = f"./datafilm/r{v}/r{v}smo{smo}.dat"
 with open(filename, "r") as f:
