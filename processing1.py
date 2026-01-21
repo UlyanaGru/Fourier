@@ -1,4 +1,11 @@
-# -*- coding: cp1251 -*-
+
+import sys
+import io
+
+sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf8')
+
 def init_matplotlib(name):
     import matplotlib.font_manager as font_manager
 
@@ -35,22 +42,24 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 11
-smo = 2
+v = 6
+smo = 0
 dt_step = 0.001
-x_frac_start = 0.2 
-x_frac_end = 0.75
-t_start = 0.4
+x_frac_start = 0.3
+x_frac_end = 1.0
+t_start = 0.6
+number = 60
 
-filename = f"./datafilm/r{v}/r{v}smo{smo}.dat"
-with open(filename, "r") as f:
+filename1 = f"./datafilm/r{v}/r{v}smo{smo}.dat"
+filename2 = f"regular_data{number}.txt"
+with open(filename1, "r") as f:
     first_line = f.readline().strip()
     dx_step = float(first_line)
 
 tf_ind = int(t_start/dt_step)
 xf_ind = int(x_frac_start*nx_max)
 xl_ind = int(x_frac_end*nx_max)
-data = np.loadtxt(filename, skiprows=2, delimiter=',')
+data = np.loadtxt(filename2, skiprows=2, delimiter=',')
 
 xmesh = np.linspace(0, 114.770, data.shape[1]) 
 tmesh = np.linspace(0, data.shape[0]*0.001, data.shape[0])
@@ -61,9 +70,9 @@ im1 = ax1.pcolor(xmesh,tmesh, data*1e3, cmap='Greys')
 cbar = plt.colorbar(im1)
 cbar.ax.tick_params(axis="both", labelsize=16)
 ax1.tick_params(axis="both", labelsize=16)
-cbar.set_label('$\\delta \mathrm{,\ мм}$', fontsize=18)
-ax1.set_xlabel("Длина, мм", fontsize=18)
-ax1.set_ylabel("Время, с", fontsize=18)
+cbar.set_label('$\\delta \mathrm{,\ ??}$', fontsize=18)
+ax1.set_xlabel("Р”Р»РёРЅР°, РјРј, fontsize=18)
+ax1.set_ylabel("Р’СЂРµРјСЏ, СЃ", fontsize=18)
 plt.tight_layout()
 plt.show()"""
 
@@ -71,17 +80,17 @@ data = data[tf_ind:, xf_ind:xl_ind]
 data_detrend = data - np.mean(data, axis=1, keepdims=True)
 nt, nx = data_detrend.shape
 
-fig, ax = plt.subplots(nrows=1, ncols=1)
+"""fig, ax = plt.subplots(nrows=1, ncols=1)
 ax1 = ax
 im1 = ax1.pcolor(xmesh[xf_ind:xl_ind], tmesh[tf_ind:], data_detrend*1e3, cmap='Greys') 
 cbar = plt.colorbar(im1)
 cbar.ax.tick_params(axis="both", labelsize=16)
 ax1.tick_params(axis="both", labelsize=16)
-cbar.set_label('$\\delta - \\overline{\\delta}\mathrm{,\ мм}$', fontsize=18)
-ax1.set_xlabel("Длина, мм", fontsize=18)
-ax1.set_ylabel("Время, с", fontsize=18)
+cbar.set_label('$\\delta - \\overline{\\delta}\mathrm{,\ РјРј}$', fontsize=18)
+ax1.set_xlabel("Р”Р»РёРЅР°, РјРј", fontsize=18)
+ax1.set_ylabel("Р’СЂРµРјСЏ, СЃ", fontsize=18)
 plt.tight_layout()
-plt.show()
+plt.show()"""
 
 # --- 2D FFT ---
 win_t = np.hanning(nt)[:, None]
@@ -107,19 +116,19 @@ else:
 lambda_phys = 1 / (k_peak / dx_step)
 freq_phys = f_peak / dt_step
 u_phys = freq_phys * lambda_phys
-print(f"Длина волны: {np.abs(lambda_phys*100.0):.4f} см")
-print(f"Частота: {np.abs(freq_phys):.4f} Гц")
-print(f"Фазовая скорость: {np.abs(u_phys*100.0):.4f} см/с")
+print(f"Р”Р»РёРЅР° РІРѕР»РЅС‹: {np.abs(lambda_phys*100.0):.4f} СЃРј")
+print(f"Р§Р°СЃС‚РѕС‚Р°: {np.abs(freq_phys):.4f} Р“С†")
+print(f"Р¤Р°Р·РѕРІР°СЏ СЃРєРѕСЂРѕСЃС‚СЊ: {np.abs(u_phys*100.0):.4f} СЃРј/СЃ")
 
-fig, ax = plt.subplots(nrows = 1,ncols = 1)
+"""fig, ax = plt.subplots(nrows = 1,ncols = 1)
 ax1 = ax
 im1 = ax1.imshow(np.log10(power + 1e-12), cmap='jet', aspect='auto', origin='lower', 
                     extent=(wavenums[0], wavenums[-1], freqs[0], freqs[-1]))
 cbar = plt.colorbar(im1)
 cbar.ax.tick_params(axis="both", labelsize=16)
 ax1.tick_params(axis="both", labelsize=16)
-cbar.set_label(r'$\mathrm{Мощность (log10)}$', fontsize=18)
-ax1.set_xlabel("Волновое число k, шт / x-ед.", fontsize=18)
-ax1.set_ylabel("Частота f, шт / t-ед.", fontsize=18)
+cbar.set_label(r'$\mathrm{РњРѕС‰РЅРѕСЃС‚СЊ (log10)}$', fontsize=18)
+ax1.set_xlabel("Р’РѕР»РЅРѕРІРѕРµ С‡РёСЃР»Рѕ k, РµРґ/ x-С€С‚.", fontsize=18)
+ax1.set_ylabel("Р§Р°СЃС‚РѕС‚Р° f, РµРґ / t-С€С‚.", fontsize=18)
 plt.tight_layout()
-plt.show()
+plt.show()"""
