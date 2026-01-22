@@ -42,13 +42,13 @@ from numpy.fft import fft2, fftshift, fftfreq
 
 nx_max = 1500
 ny_max = 60
-v = 6
-smo = 0
+v = 11
+smo = 2
 dt_step = 0.001
-x_frac_start = 0.3
+x_frac_start = 0.5
 x_frac_end = 1.0
 t_start = 0.6
-number = 60
+number = 112
 
 filename1 = f"./datafilm/r{v}/r{v}smo{smo}.dat"
 filename2 = f"regular_data{number}.txt"
