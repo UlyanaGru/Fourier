@@ -47,7 +47,7 @@ smo = 2
 dt_step = 0.001
 x_frac_start = 0.5
 x_frac_end = 1.0
-t_start = 0.6
+t_start = 1.0
 number = 112
 
 filename1 = f"./datafilm/r{v}/r{v}smo{smo}.dat"
@@ -64,23 +64,23 @@ data = np.loadtxt(filename2, skiprows=2, delimiter=',')
 xmesh = np.linspace(0, 114.770, data.shape[1]) 
 tmesh = np.linspace(0, data.shape[0]*0.001, data.shape[0])
 
-"""fig, ax = plt.subplots(nrows=1,ncols = 1)
-ax1 = ax
-im1 = ax1.pcolor(xmesh,tmesh, data*1e3, cmap='Greys')
-cbar = plt.colorbar(im1)
-cbar.ax.tick_params(axis="both", labelsize=16)
-ax1.tick_params(axis="both", labelsize=16)
-cbar.set_label('$\\delta \mathrm{,\ ??}$', fontsize=18)
-ax1.set_xlabel("Длина, мм, fontsize=18)
-ax1.set_ylabel("Время, с", fontsize=18)
-plt.tight_layout()
-plt.show()"""
+# fig, ax = plt.subplots(nrows=1,ncols = 1)
+# ax1 = ax
+# im1 = ax1.pcolor(xmesh,tmesh, data*1e3, cmap='Greys')
+# cbar = plt.colorbar(im1)
+# cbar.ax.tick_params(axis="both", labelsize=16)
+# ax1.tick_params(axis="both", labelsize=16)
+# cbar.set_label('$\\delta \mathrm{,\ ??}$', fontsize=18)
+# ax1.set_xlabel("Длина, мм", fontsize=18)
+# ax1.set_ylabel("Время, с", fontsize=18)
+# plt.tight_layout()
+# plt.show()
 
 data = data[tf_ind:, xf_ind:xl_ind]
 data_detrend = data - np.mean(data, axis=1, keepdims=True)
 nt, nx = data_detrend.shape
 
-"""fig, ax = plt.subplots(nrows=1, ncols=1)
+fig, ax = plt.subplots(nrows=1, ncols=1)
 ax1 = ax
 im1 = ax1.pcolor(xmesh[xf_ind:xl_ind], tmesh[tf_ind:], data_detrend*1e3, cmap='Greys') 
 cbar = plt.colorbar(im1)
@@ -90,7 +90,7 @@ cbar.set_label('$\\delta - \\overline{\\delta}\mathrm{,\ мм}$', fontsize=18)
 ax1.set_xlabel("Длина, мм", fontsize=18)
 ax1.set_ylabel("Время, с", fontsize=18)
 plt.tight_layout()
-plt.show()"""
+plt.show()
 
 # --- 2D FFT ---
 win_t = np.hanning(nt)[:, None]
@@ -120,7 +120,7 @@ print(f"Длина волны: {np.abs(lambda_phys*100.0):.4f} см")
 print(f"Частота: {np.abs(freq_phys):.4f} Гц")
 print(f"Фазовая скорость: {np.abs(u_phys*100.0):.4f} см/с")
 
-"""fig, ax = plt.subplots(nrows = 1,ncols = 1)
+fig, ax = plt.subplots(nrows = 1,ncols = 1)
 ax1 = ax
 im1 = ax1.imshow(np.log10(power + 1e-12), cmap='jet', aspect='auto', origin='lower', 
                     extent=(wavenums[0], wavenums[-1], freqs[0], freqs[-1]))
@@ -131,4 +131,4 @@ cbar.set_label(r'$\mathrm{Мощность (log10)}$', fontsize=18)
 ax1.set_xlabel("Волновое число k, ед/ x-шт.", fontsize=18)
 ax1.set_ylabel("Частота f, ед / t-шт.", fontsize=18)
 plt.tight_layout()
-plt.show()"""
+plt.show()
