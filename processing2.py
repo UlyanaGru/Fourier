@@ -39,8 +39,8 @@ import pandas as pd
 
 nx_max = 1500
 ny_max = 60
-v = 12
-smo = 0
+v = 6
+smo = 1
 dt_step = 0.001
 x_frac_start = 0.3 
 x_frac_end = 1.0
@@ -101,12 +101,12 @@ min_val = np.min(data_amlitude, axis=0, keepdims=False)
 amlitude = (max_val - min_val)/(max_val + min_val)
 x_coords = np.arange(0,amlitude.shape[0],1)
 plt.plot(x_coords, amlitude, 'b-')
-plt.xlabel('Длина, КО', fontsize=18)
-plt.ylabel(r'$\alpha = \frac{\alpha_{\max} - \alpha_{\min}}{\alpha_{\max} + \alpha_{\min}}$', fontsize=18)
+plt.xlabel('Длина, КО', fontsize=20)
+plt.ylabel(r'$\alpha = \frac{\alpha_{\max} - \alpha_{\min}}{\alpha_{\max} + \alpha_{\min}}$', fontsize=28)
 plt.grid(True, alpha=0.3)
-plt.title(f'Амплитуда волн, б/м', fontsize=20)
-plt.xticks(fontsize=16)
-plt.yticks(fontsize=16)
+plt.title(f'Амплитуда волн, б/м', fontsize=24)
+plt.xticks(fontsize=18)
+plt.yticks(fontsize=18)
 plt.show()
 
 print(dx_step)
