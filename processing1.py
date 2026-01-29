@@ -50,7 +50,7 @@ x_frac_end = 1.0
 t_start = 0.2
 number = 120
 
-filename1 = f"./datafilm/r{v}/r{v}smo{smo}_test.dat"
+filename1 = f"./datafilm/r{v}/r{v}smo{smo}_test_cp1.dat"
 filename2 = f"regular_data{number}.txt"
 with open(filename1, "r") as f:
     first_line = f.readline().strip()
